@@ -4,6 +4,8 @@
 
 > Evidence payload format validated by ChatGPT, Gemini Pro, and Grok — March 2026
 
+[![ReserveOracle MCP server](https://glama.ai/mcp/servers/ToolOracle/reserveoracle/badges/card.svg)](https://glama.ai/mcp/servers/ToolOracle/reserveoracle)
+
 ## Connect
 ```bash
 npx -y mcp-remote https://tooloracle.io/reserve/mcp/
