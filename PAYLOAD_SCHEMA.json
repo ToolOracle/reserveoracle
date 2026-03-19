@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReserveOracle Evidence Payload v1.2",
+  "description": "Combined reserve evidence payload — asset-level (reserve_reference_snapshot)",
+  "type": "object",
+  "required": ["asset","symbol","asset_type","price","quote_currency","evidence_type","content_hash","signature","verify_url"],
+  "properties": {
+    "asset":               { "type": "string", "example": "gold" },
+    "symbol":              { "type": "string", "example": "XAU" },
+    "asset_type":          { "type": "string", "example": "commodity_reserve_asset" },
+    "price":               { "type": "number", "example": 4709.4 },
+    "quote_currency":      { "type": "string", "example": "USD" },
+    "unit":                { "type": "string", "example": "USD/oz" },
+    "price_type":          { "type": "string", "enum": ["spot","fixing","indicative"] },
+    "market_status":       { "type": "string", "enum": ["open","closed"] },
+    "change_pct_24h":      { "type": ["number","null"] },
+    "market_data_source":  { "type": "string", "example": "Yahoo Finance (GC=F)" },
+    "reference_benchmark": { "type": "string", "example": "LBMA Gold Price PM" },
+    "backing_purity_standard": { "type": "string", "example": "London Good Delivery (LBMA)" },
+    "source_timestamp":    { "type": "string", "format": "date-time" },
+    "valid_until":         { "type": "string", "format": "date-time" },
+    "rwa_tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["symbol","network"],
+        "properties": {
+          "symbol":   { "type": "string" },
+          "network":  { "type": "string" },
+          "contract": { "type": ["string","null"] },
+          "issuer":   { "type": "string" }
+        }
+      }
+    },
+    "reserve_relevance":   { "type": "string" },
+    "mica_relevance":      { "type": "string" },
+    "mica_context": {
+      "type": "object",
+      "properties": {
+        "classification_potential": { "type": "string", "example": "ART" },
+        "classification_basis":     { "type": "string", "example": "commodity referenced" },
+        "title_reference":          { "type": "string", "example": "MiCA Title IV" }
+      }
+    },
+    "rank_context": {
+      "type": "object",
+      "properties": {
+        "reserve_rank": { "type": "integer" },
+        "category":     { "type": "string" }
+      }
+    },
+    "evidence_type":       { "type": "string", "enum": ["reserve_reference_snapshot","token_reserve_context"] },
+    "content_hash":        { "type": "string", "pattern": "^sha256:[a-f0-9]+$" },
+    "signature_alg":       { "type": "string", "example": "ES256K" },
+    "signer_public_key":   { "type": "string", "pattern": "^0x[a-f0-9]+$" },
+    "signature":           { "type": "string" },
+    "signed_at":           { "type": "string", "format": "date-time" },
+    "verify_url":          { "type": "string", "format": "uri" },
+    "request_id":          { "type": "string", "pattern": "^fo-[a-f0-9]+$" }
+  }
+}
