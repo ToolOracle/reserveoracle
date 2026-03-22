@@ -1,127 +1,72 @@
-# 🏦 ReserveOracle
+# 🏦 reserveOracle
 
-**Reserve Asset Intelligence MCP Server** — 11 tools | Part of [ToolOracle](https://tooloracle.io)
+**Financial Data MCP Server** — 11 tools | Part of [ToolOracle](https://tooloracle.io)
 
-> Evidence payload format validated by ChatGPT, Gemini Pro, and Grok — March 2026
+![Tools](https://img.shields.io/badge/MCP_Tools-11-10B898?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Live-00C853?style=flat-square)
+![Tier](https://img.shields.io/badge/Tier-Free-2196F3?style=flat-square)
 
-## Connect
+## Quick Connect
+
 ```bash
+# Claude Desktop / Cursor / Windsurf
 npx -y mcp-remote https://tooloracle.io/reserve/mcp/
 ```
 
-## What makes it different
-
-Every tool returns a **combined evidence payload** with 4 layers simultaneously:
-
 ```json
+// claude_desktop_config.json
 {
-  "asset": "gold",
-  "symbol": "XAU",
-  "asset_type": "commodity_reserve_asset",
-
-  "price": 4709.4,
-  "quote_currency": "USD",
-  "unit": "USD/oz",
-  "price_type": "spot",
-  "market_status": "open",
-
-  "market_data_source": "Yahoo Finance (GC=F / SI=F)",
-  "reference_benchmark": "LBMA Gold Price PM",
-  "backing_purity_standard": "London Good Delivery (LBMA)",
-  "source_timestamp": "2026-03-19T09:58:44Z",
-  "valid_until": "2026-03-20T09:58:44Z",
-
-  "rwa_tokens": [
-    { "symbol": "PAXG", "network": "ethereum", "contract": "0x45804880...", "issuer": "Paxos Trust Company" },
-    { "symbol": "XAUT", "network": "ethereum", "contract": "0x68749665...", "issuer": "TG Commodities Limited" }
-  ],
-
-  "reserve_relevance": "Reference reserve asset for gold-backed token structures",
-  "mica_relevance": "Reserve asset context for asset-referenced token analysis — MiCA Art. 36",
-  "mica_context": {
-    "classification_potential": "ART",
-    "classification_basis": "commodity referenced",
-    "title_reference": "MiCA Title IV"
-  },
-  "rank_context": { "reserve_rank": 1, "category": "commodity_reserve_asset" },
-
-  "evidence_type": "reserve_reference_snapshot",
-  "content_hash": "sha256:6910606724dd618d",
-  "signature_alg": "ES256K",
-  "signer_public_key": "0x0205705c9c2d2da037af7304164f7037e72b5fba8aae5ff6ff4e2ee848ada2f39f",
-  "signature": "MEYCIQC9Uj-O4Rg00YGndqgA3SJc9BvSMrmvKv1RGlVnpArVxg...",
-  "signed_at": "2026-03-19T09:58:44Z",
-  "verify_url": "https://tooloracle.io/verify/reserve/fo-d029bcb238d4"
+  "mcpServers": {
+    "reserveoracle": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://tooloracle.io/reserve/mcp/"]
+    }
+  }
 }
 ```
 
-### 4 layers in one payload
+## Tools (11)
 
-| Layer | Fields |
-|-------|--------|
-| **API cleanness** | `price`, `quote_currency`, `market_status`, `rwa_tokens` as objects |
-| **Verifiability** | `signature`, `signer_public_key`, `content_hash`, `verify_url` |
-| **Evidence snapshot** | `source_timestamp`, `valid_until`, `evidence_type`, `reference_benchmark` |
-| **ReserveOracle differentiation** | `reserve_relevance`, `mica_relevance`, `mica_context`, `rank_context` |
-
-### Two payload types — cleanly separated
-
-| | Asset-Level | Token-Level |
-|--|-------------|-------------|
-| Tool | `reserve_gold`, `reserve_silver` | `reserve_token_context` |
-| Focus | Gold/Silver as reserve asset | PAXG/XAUT/BUIDL issuer + structure |
-| `evidence_type` | `reserve_reference_snapshot` | `token_reserve_context` |
-| Includes | Live price, LBMA benchmark, rwa_tokens | Custody, LEI, vault location, audit frequency |
-
-## Tools
-
-| Tool | Credits | Description |
-|------|---------|-------------|
-| `reserve_gold` | 2u | Live XAU — full combined evidence payload |
-| `reserve_silver` | 2u | Live XAG — full combined evidence payload |
-| `reserve_metals` | 2u | Gold + Silver + ratio in one signed call |
-| `reserve_token_lookup` | 2u | Full RWA profile: PAXG, XAUT, BUIDL, USDC, RLUSD... |
-| `reserve_gold_tokens` | 3u | All gold-backed RWA tokens + live XAU spot |
-| `reserve_mica_assets` | 3u | All MiCA-relevant assets, filter by type |
-| `reserve_asset_types` | 1u | Browse 80+ protocols by asset type |
-| `reserve_issuer` | 2u | Issuer deep-profile: LEI, regulator, custody |
-| `reserve_snapshot` | 3u | Full reserve evidence snapshot |
-| `reserve_token_context` | 2u | Token-level: custody, vault location, audit frequency, regulatory status |
-| `health_check` | free | Status |
-
-## PAXG vs XAUT — instant risk differentiation
-
-```json
-PAXG: vault_location=London, audit=monthly, regulatory_status=["NYDFS regulated", "qualified custodian"], lei="549300BHQGE3I4ZVKW46"
-XAUT: vault_location=Switzerland, audit=quarterly, regulatory_status=["BVI registered", "unregulated issuer"], lei=null
-```
-
-## Cryptographic verification
-
-- Algorithm: **ES256K** (secp256k1) — same as Ethereum
-- Public key: `0x0205705c9c2d2da037af7304164f7037e72b5fba8aae5ff6ff4e2ee848ada2f39f`
-- JWKS: `https://feedoracle.io/.well-known/jwks.json`
-- Every payload: `content_hash` + real `signature` + `verify_url` with request ID
-
-## Registry Coverage
-
-80+ protocols including gold tokens, stablecoins, tokenized treasuries, money market funds.
-PAXG, XAUT, BUIDL (BlackRock), OUSG (Ondo), USDC, USDT, EURC, RLUSD, EURCV, EURe, Midas (BaFin), Spiko (AMF).
+| Tool | Description |
+|------|-------------|
+| `reserve_gold` | Live gold spot price (XAU) as a signed reserve evidence payload. Includes price, |
+| `reserve_silver` | Live silver spot price (XAG) as a signed reserve evidence payload. Includes pric |
+| `reserve_metals` | Live gold (XAU) and silver (XAG) prices in one call with signed evidence payload |
+| `reserve_token_lookup` | Full RWA profile for any reserve asset token: PAXG, XAUT, BUIDL, USDC, USDT, EUR |
+| `reserve_gold_tokens` | All gold-backed RWA tokens from the registry: PAXG (Paxos/Brinks), XAUT (Tether/ |
+| `reserve_mica_assets` | All MiCA-relevant reserve assets from the RWA registry (80+ protocols). Filter b |
+| `reserve_asset_types` | Browse all RWA asset types in the registry with token counts. Covers: stablecoin |
+| `reserve_issuer` | Issuer deep-profile for any reserve token: legal name, LEI number, jurisdiction, |
+| `reserve_snapshot` | Full signed reserve evidence snapshot for any asset. Combines live price data (f |
+| `health_check` | ReserveOracle health status. |
+| `reserve_token_context` | Token-level reserve context for any RWA token — the issuer-near view. Returns to |
 
 ## Pricing
 
-| Tier | Price | Units/Month |
-|------|-------|-------------|
-| Free | $0 | 50 |
-| Starter | $49/mo | 500 |
-| Pro | $149/mo | 2,000 |
-| Agency | $349/mo | 6,000 |
-| x402 | per call | unlimited |
+| Tier | Rate Limit | Price |
+|------|-----------|-------|
+| Free | 100 calls/day | €0 |
+| Pro | 10,000 calls/day | €29/month |
+| Enterprise | Unlimited | Custom |
+
+> Free tier includes all tools with rate limiting. Upgrade for higher limits and priority support.
 
 ## Part of ToolOracle
 
-[tooloracle.io](https://tooloracle.io) — 12 products, 111 tools, all MCP-native.
+reserveOracle is one of **42 specialized MCP servers** in the [ToolOracle](https://tooloracle.io) ecosystem — the largest collection of production-ready MCP tools for AI agents.
 
-## License
 
-MIT
+
+**Related Oracles:**
+- [FeedOracle](https://feedoracle.io) — Evidence-grade compliance data infrastructure
+- [ToolOracle](https://tooloracle.io) — 42 Oracles, 390+ MCP Tools
+
+## Links
+
+- 🌐 Live: `https://tooloracle.io/reserve/mcp/`
+- 📚 Docs: [tooloracle.io/docs](https://tooloracle.io/docs)
+- 🏠 Platform: [tooloracle.io](https://tooloracle.io)
+
+---
+
+*Built by [FeedOracle](https://feedoracle.io) — Evidence by Design*
