@@ -1,20 +1,8 @@
 {
-  "name": "ReserveOracle",
-  "description": "Reserve Asset Intelligence MCP Server — live gold/silver evidence payloads with ES256K signatures, 80+ RWA token profiles (PAXG, XAUT, BUIDL, BlackRock), issuer LEI, MiCA Art.36 context. Combined payload validated by ChatGPT, Gemini Pro, Grok.",
-  "version": "1.2.0",
-  "author": "ToolOracle",
-  "homepage": "https://tooloracle.io",
+  "name": "reserveOracle",
+  "description": "Reserve Asset Intelligence \u2014 11 MCP tools for reserve monitoring",
   "repository": "https://github.com/ToolOracle/reserveoracle",
-  "license": "MIT",
-  "tools": [
-    "reserve_gold","reserve_silver","reserve_metals",
-    "reserve_token_lookup","reserve_gold_tokens","reserve_mica_assets",
-    "reserve_asset_types","reserve_issuer","reserve_snapshot",
-    "reserve_token_context","health_check"
-  ],
-  "tags": ["gold","silver","rwa","reserve-assets","paxg","xaut","blackrock","mica","evidence","es256k","signed"],
-  "mcp": {
-    "transport": "streamable-http",
-    "endpoint": "https://tooloracle.io/reserve/mcp/"
-  }
+  "endpoint": "https://tooloracle.io/reserve/mcp/",
+  "tools": 11,
+  "license": "MIT"
 }
