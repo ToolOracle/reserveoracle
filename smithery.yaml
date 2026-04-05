@@ -1,0 +1,5 @@
+name: ReserveOracle
+description: Stablecoin reserve analysis — 10 tools
+endpoint: https://tooloracle.io/reserve/mcp/
+transport: streamable-http
+license: MIT
