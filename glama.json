@@ -1,12 +1,4 @@
 {
-  "name": "ReserveOracle",
-  "description": "Reserve Asset Intelligence MCP Server — live gold/silver prices, 80+ RWA protocol profiles, MiCA-relevant reserve assets, issuer deep-profiles with LEI numbers, ES256K-signed evidence snapshots. 11 tools.",
-  "repository": "https://github.com/ToolOracle/reserveoracle",
-  "homepage": "https://tooloracle.io/reserve/",
-  "license": "MIT",
-  "author": "ToolOracle",
-  "categories": ["blockchain", "finance", "research-and-data"],
-  "tools": 11,
-  "features": ["remote-capable", "free-tier"],
-  "mcp_endpoint": "https://tooloracle.io/reserve/mcp/"
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": ["feedoracle"]
 }
